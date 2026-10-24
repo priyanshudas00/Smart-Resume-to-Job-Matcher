@@ -1,32 +1,33 @@
 # Smart Resume-to-Job Matcher
 
-A Python tool that reads and parses resume and job description files, scores candidate fit, and ranks the best matches. Built with Object-Oriented Programming, file handling, string operations, and exception handling.
+A Python web application that parses resumes and job descriptions, scores candidate fit, and ranks matches through a browser UI. Built with Object-Oriented Programming, file handling, string operations, and exception handling.
 
 ## Features
 
-- Parse resumes and job descriptions from `.txt`, `.md`, `.csv`, `.pdf` (optional), and `.docx` (optional) files.
-- Extract skills, years of experience, education, and keywords using text processing.
-- Score candidates on skills, experience, and education with configurable weights.
-- Rank candidates and produce console, text, and JSON reports.
-- Graceful handling of missing, empty, or corrupted files.
-- Command-line interface for matching and file validation.
+- Upload multiple resumes and a job description (file or pasted text) via a browser UI.
+- Weighted scoring: skills 50%, experience 30%, education 20%.
+- Skill extraction via alias dictionary with word-boundary regex.
+- Experience and education heuristics.
+- Optional PDF/DOCX support via lazy imports (`pypdf`, `python-docx`).
+- Custom exception hierarchy for validation/read/parse errors.
+- Responsive HTML/CSS interface.
 
 ## Project Structure
 
 ```
-resume_matcher/        # package
-  exceptions.py       # custom exceptions
-  models.py           # Candidate, JobDescription, MatchResult
-  file_handler.py     # safe file reading & validation
-  skills.py           # skill database & extraction
-  parser.py           # resume/job parsers
-  scorer.py           # scoring engine
-  matcher.py          # orchestration & ranking
-  reporter.py         # output formatting
-  cli.py              # command-line interface
-data/                 # sample resumes and job descriptions
-tests/                # unit tests
-main.py               # script entry point
+resume_matcher/   # core package
+  exceptions.py    # custom exceptions
+  models.py        # Candidate, JobDescription, MatchResult
+  file_handler.py  # safe file reading & validation
+  skills.py        # skill database & extraction
+  parser.py        # resume/job parsers
+  scorer.py        # scoring engine
+  matcher.py       # orchestration & ranking
+  reporter.py      # output formatting
+templates/         # HTML templates
+static/            # CSS
+data/              # sample resumes and job descriptions
+app.py             # Flask entry point
 ```
 
 ## Installation
@@ -47,37 +48,13 @@ Optional (for PDF/DOCX support):
 pip install pypdf python-docx
 ```
 
-## Usage
-
-### Match resumes in a directory against a job description
+## Run
 
 ```bash
-python main.py match --resumes data/resumes --job data/jobs/senior_python_backend.txt
+python app.py
 ```
 
-### Match specific files
-
-```bash
-python main.py match -r data/resumes/jane_doe.txt data/resumes/alice_johnson.txt -j data/jobs/senior_python_backend.txt -o report.txt --json results.json
-```
-
-### Validate input files
-
-```bash
-python main.py validate data/resumes/*.txt
-```
-
-### Run as a module
-
-```bash
-python -m resume_matcher match --resumes data/resumes --job data/jobs/senior_python_backend.txt
-```
-
-## Running Tests
-
-```bash
-pytest -q
-```
+Then open http://127.0.0.1:5000 in your browser.
 
 ## Scoring
 
@@ -97,3 +74,4 @@ All file operations are wrapped to raise descriptive custom exceptions:
 ## License
 
 MIT
+

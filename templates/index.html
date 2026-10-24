@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smart Resume-to-Job Matcher</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <header class="hero">
+    <h1>Smart Resume-to-Job Matcher</h1>
+    <p>Upload resumes and a job description to get ranked candidate matches.</p>
+  </header>
+
+  <main class="container">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-list">
+          {% for category, message in messages %}
+            <div class="flash flash-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <section class="card">
+      <form action="{{ url_for('match') }}" method="post" enctype="multipart/form-data" class="upload-form">
+        <div class="field">
+          <label for="resumes">Resume files (multiple)</label>
+          <input type="file" id="resumes" name="resumes" multiple accept=".txt,.md,.csv,.pdf,.docx" required />
+          <small>Supported: .txt, .md, .csv, .pdf, .docx</small>
+        </div>
+
+        <div class="field">
+          <label for="job_file">Job description file (optional)</label>
+          <input type="file" id="job_file" name="job_file" accept=".txt,.md,.csv,.pdf,.docx" />
+        </div>
+
+        <div class="field">
+          <label for="job_text">Or paste job description text</label>
+          <textarea id="job_text" name="job_text" rows="8" placeholder="Paste job description here..."></textarea>
+        </div>
+
+        <button type="submit" class="btn">Match Resumes</button>
+      </form>
+    </section>
+
+    {% if results %}
+    <section class="card results">
+      <h2>Ranked Matches</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Candidate</th>
+              <th>Score</th>
+              <th>Skill</th>
+              <th>Experience</th>
+              <th>Education</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for r in results %}
+            <tr>
+              <td>{{ r.rank }}</td>
+              <td>{{ r.candidate.name }}</td>
+              <td>{{ r.score }}</td>
+              <td>{{ r.skill_score }}</td>
+              <td>{{ r.experience_score }}</td>
+              <td>{{ r.education_score }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="details">
+        {% for r in results %}
+        <article class="detail-card">
+          <h3>Rank {{ r.rank }}: {{ r.candidate.name }} <span class="score-badge">{{ r.score }}/100</span></h3>
+          <p><strong>Skills:</strong> {{ r.skill_score }}/100 &nbsp;|&nbsp; <strong>Experience:</strong> {{ r.experience_score }}/100 &nbsp;|&nbsp; <strong>Education:</strong> {{ r.education_score }}/100</p>
+          <p><strong>Matched skills:</strong> {{ r.matched_skills | join(', ') if r.matched_skills else 'None' }}</p>
+          <p><strong>Missing skills:</strong> {{ r.missing_skills | join(', ') if r.missing_skills else 'None' }}</p>
+          {% if r.extra_skills %}
+          <p><strong>Extra skills:</strong> {{ r.extra_skills | join(', ') }}</p>
+          {% endif %}
+          <p><strong>Experience (years):</strong> {{ r.candidate.experience_years }} (required {{ r.job.min_experience_years }})</p>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+    {% endif %}
+  </main>
+
+  <footer class="footer">
+    <p>Smart Resume-to-Job Matcher &copy; 2026</p>
+  </footer>
+</body>
+</html>
