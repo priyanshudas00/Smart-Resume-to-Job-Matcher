@@ -9,3 +9,4 @@ werkzeug>=3.0.0
 # Development
 pytest>=8.0.0
 
+gunicorn
