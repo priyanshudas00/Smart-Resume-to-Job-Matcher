@@ -1,0 +1,10 @@
+Bob Lee
+Junior Developer
+
+Skills: Python, HTML, CSS, Git
+
+Experience: 1 year of experience.
+
+Education: Associate Degree in Computer Science
+
+Summary: Learning backend development.

@@ -1,0 +1,24 @@
+Job Title: Senior Python Backend Engineer
+
+We are looking for a Senior Python Backend Engineer.
+
+Required Skills:
+- Python
+- Django or Flask
+- SQL / PostgreSQL
+- Docker
+- REST API
+- Git
+
+Preferred Skills:
+- AWS
+- Machine Learning
+- FastAPI
+- Kubernetes
+- CI/CD
+
+Experience: 5+ years of experience.
+
+Education: Bachelor's degree in Computer Science or related field.
+
+Responsibilities: Build scalable services, mentor junior developers, collaborate with data teams.

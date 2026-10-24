@@ -1,0 +1,10 @@
+Jane Doe
+Senior Python Developer
+
+Skills: Python, Django, Flask, FastAPI, SQL, PostgreSQL, Docker, AWS, Git, REST API, Machine Learning, Pandas, NumPy
+
+Experience: 6 years of experience in backend development and data engineering.
+
+Education: Master of Science in Computer Science, Bachelor of Technology in IT
+
+Summary: Built scalable web services and ML pipelines. Led a team of 4 engineers.

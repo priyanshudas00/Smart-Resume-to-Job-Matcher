@@ -1,0 +1,10 @@
+John Smith
+Full Stack Engineer
+
+Skills: JavaScript, TypeScript, React, Node.js, HTML, CSS, SQL, MongoDB, Docker, Git, Agile
+
+Experience: 4 years of experience in web development.
+
+Education: Bachelor of Science in Computer Science
+
+Summary: Developed responsive web applications and REST APIs.
